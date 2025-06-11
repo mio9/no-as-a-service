@@ -49,7 +49,7 @@ Use it in apps, bots, landing pages, Slack integrations, rejection letters, or w
 
 ## 🛠️ Self-Hosting
 
-Want to run it yourself? It’s lightweight and simple.
+Want to run it yourself? It's lightweight and simple. (not quite now)
 
 ### 1. Clone this repository
 ```bash
@@ -61,6 +61,9 @@ cd no-as-a-service
 ```bash
 bun install
 ```
+
+### 2.1 Setup Ollama Server
+You need an Ollama server running. If you don't have one and wish to set it up locally, you can follow the instructions on [Ollama's GitHub](https://github.com/ollama/ollama) to set it up.
 
 ### 3. Configure environment variables
 Copy the `.env.example` file to `.env` and fill change the necessary values:
