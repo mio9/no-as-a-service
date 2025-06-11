@@ -6,7 +6,8 @@
   "description": "A lightweight API that returns random rejection or no reasons.",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "bun index.ts",
+    "dev": "bun --watch index.ts"
   },
   "dependencies": {
     "@fastify/rate-limit": "^10.3.0",

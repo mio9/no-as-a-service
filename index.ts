@@ -10,35 +10,31 @@ import fs from 'fs'
 // const app = express();
 const fastify = Fastify({
   logger: true,
-  trustProxy: process.env.TRUST_PROXY
+  trustProxy: (process.env.TRUST_PROXY?.toLowerCase()) == 'true' ? true : false
 });
 // Trust proxy headers (for Cloudflare)
 // app.set('trust proxy', true);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || '3000';
 
 // Load reasons from JSON
 const reasons = JSON.parse(fs.readFileSync('./reasons.json', 'utf-8'));
 
 // Rate limiter: 120 requests per minute per IP
-const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
+await fastify.register(rateLimit, {
   max: 120,
-  keyGenerator: (req, res) => {
-    return req.headers['cf-connecting-ip'] || req.ip; // Fallback if header missing (or for non-CF)
-  },
-  message: { error: "Too many requests, please try again later. (120 reqs/min/IP)" }
-});
+  timeWindow: 60 * 1000,
+})
 
-app.use(limiter);
 
 // Random rejection reason endpoint
-app.get('/no', (req, res) => {
+fastify.get('/no', async (request, reply) => {
   const reason = reasons[Math.floor(Math.random() * reasons.length)];
-  res.json({ reason });
+  return reply.send({ reason });
 });
 
-// Start server
-app.listen(PORT, () => {
+//fastify start server
+fastify.listen({ port: parseInt(PORT, 10), }, (err) => {
+  if (err) throw err;
   console.log(`No-as-a-Service is running on port ${PORT}`);
 });
