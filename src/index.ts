@@ -37,11 +37,24 @@ await fastify.register(rateLimit, {
 
 // Random rejection reason endpoint
 fastify.get('/no', async (request, reply) => {
-	const { endless } = request.query as { endless?: string };
+	const { endless, wild } = request.query as { endless?: string, wild?: number };
 	let outReason = ""
+	const wildMode = wild || 0;
 	if (endless === 'true') {
 		// Implement endless mode with Ollama AI
 		let prompt = `generate a random reason to turn down something`
+		if (wildMode != -1 ) {
+			prompt += " in creative way"
+		}
+		if (wildMode >= 1) {
+			prompt += ", and express it in an abstract manner"
+		}
+		if (wildMode >= 2) {
+			prompt += " poetically"
+		}
+		if (wildMode >= 3) {
+			prompt += " in royal english"
+		}
 		const response = await getOllamaResponse(prompt);
 		outReason = response; // Use the generated reason from Ollama AI
 	} else {
