@@ -4,6 +4,7 @@
 import Fastify from 'fastify'
 import rateLimit from '@fastify/rate-limit'
 import fs from 'fs'
+import { getOllamaResponse } from './ollama';
 
 // const app = express();
 const fastify = Fastify({
@@ -37,11 +38,21 @@ await fastify.register(rateLimit, {
 // Random rejection reason endpoint
 fastify.get('/no', async (request, reply) => {
   const { endless } = request.query as { endless?: string };
+  let outReason = ""
   if (endless === 'true') {
     // Implement endless mode with Ollama AI
+    const response = await getOllamaResponse("generate a random reason to turn down something");
+    outReason = response; // Use the generated reason from Ollama AI
+  } else {
+    outReason = reasons[Math.floor(Math.random() * reasons.length)];
   }
-  const reason = reasons[Math.floor(Math.random() * reasons.length)];
-  return reply.send({ reason });
+  return reply.send({ reason: outReason });
+});
+
+fastify.get("/test", async (request, reply) => {
+  const { prompt } = request.query as { prompt?: string };
+  const response = await getOllamaResponse(prompt || "say hello");
+  return reply.send({ response });
 });
 
 //fastify start server
