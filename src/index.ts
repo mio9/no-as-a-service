@@ -23,7 +23,7 @@ const fastify = Fastify({
 // Trust proxy headers (for Cloudflare)
 // app.set('trust proxy', true);
 
-const PORT = process.env.PORT || '3000';
+const PORT = process.env.PORT || '13300';
 
 // Load reasons from JSON
 const reasons = JSON.parse(fs.readFileSync(`${__dirname}/reasons.json`, 'utf-8'));

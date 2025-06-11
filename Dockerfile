@@ -25,10 +25,10 @@ COPY src ./src
 # run the app
 USER bun
 
-ENV PORT=3300
+ENV PORT=13300
 ENV TRUST_PROXY=true
 ENV OLLAMA_URL=http://localhost:11434
 ENV OLLAMA_MODEL=gemma3:4b
 
-EXPOSE 3300/tcp
+EXPOSE 13300/tcp
 ENTRYPOINT [ "bun", "run", "src/index.ts" ]

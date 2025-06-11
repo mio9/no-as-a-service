@@ -1,0 +1,18 @@
+services:
+  naas:
+    image: "mio9/naas:2"   # use the pre-built image from Docker Hub
+    # build: .            # uncomment to build locally, comment the above line instead
+    ports:
+      - 13300:13300
+    network_mode: "host"
+    environment:
+      - OLLAMA_URL=http://localhost:11434
+      - OLLAMA_MODEL=gemma3:4b
+      - TRUST_PROXY=true
+  ollama:
+    volumes:
+        - ollama:/root/.ollama
+    ports:
+        - 11434:11434
+    image: ollama/ollama
+    

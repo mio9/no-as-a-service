@@ -1,6 +1,6 @@
 {
   "name": "no-as-service",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "mio9",
   "main": "index.js",
   "description": "A lightweight API that returns random rejection or no reasons, forked from hotheadhacker",
