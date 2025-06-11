@@ -139,6 +139,7 @@ Here are some projects and websites that creatively integrate [no-as-a-service](
 ## 👤 Author
 
 Created with creative stubbornness by [hotheadhacker](https://github.com/hotheadhacker)
+
 Overengineered and AI injected with no care by [mio9](https://github.com/mio9)
 
 ---
