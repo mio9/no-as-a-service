@@ -53,18 +53,28 @@ Want to run it yourself? It’s lightweight and simple.
 
 ### 1. Clone this repository
 ```bash
-git clone https://github.com/hotheadhacker/no-as-a-service.git
+git clone https://github.com/mio9/no-as-a-service.git
 cd no-as-a-service
 ```
 
 ### 2. Install dependencies
 ```bash
-npm install
+bun install
 ```
 
-### 3. Start the server
+### 3. Configure environment variables
+Copy the `.env.example` file to `.env` and fill change the necessary values:
+```env
+PORT=3300 # or any other port you prefer
+TRUST_PROXY=true # set to true if your app is behind a proxy (e.g., Nginx)
+OLLAMA_URL=http://your-ollama-server:port/ # URL to your Ollama server, e.g. http://localhost:11434 (no trailing slash)
+OLLAMA_MODEL=your-model-name # The model you want to use from Ollama, e.g. gemma3:4b
+```
+
+### 4. Start the dev server
 ```bash
-npm start
+bun start #, or use
+bun dev # for development with hot-reloading
 ```
 
 The API will be live at:
@@ -74,7 +84,7 @@ http://localhost:3000/no
 
 You can also change the port using an environment variable:
 ```bash
-PORT=5000 npm start
+PORT=5000 bun start
 ```
 
 ---
@@ -83,35 +93,19 @@ PORT=5000 npm start
 
 ```
 no-as-service/
-├── index.js            # Express API
-├── reasons.json        # 1000+ universal rejection reasons
+├── .env.example   # Environment file to be copied
+├── README.md
 ├── package.json
-├── .devcontainer.json  # VS Code / Github devcontainer setup
-└── README.md
-```
-
----
-
-## 📦 package.json
-
-For reference, here’s the package config:
-
-```json
-{
-  "name": "no-as-service",
-  "version": "1.0.0",
-  "description": "A lightweight API that returns random rejection or no reasons.",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "author": "hotheadhacker",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2",
-    "express-rate-limit": "^7.0.0"
-  }
-}
+├── reasons.json    # The manual list of reasons from original project
+├── tsconfig.json          # Root TypeScript config
+├── assets/
+│   └── imgs/             # Image assets
+├── benchmark/
+│   └── script.js         # Benchmark script
+└── src/
+    ├── env.d.ts            # TypeScript environment declarations
+    ├── index.ts            # Main application entry point
+    └── ollama.ts           # Ollama-related utilities
 ```
 
 ---
@@ -145,6 +139,7 @@ Here are some projects and websites that creatively integrate [no-as-a-service](
 ## 👤 Author
 
 Created with creative stubbornness by [hotheadhacker](https://github.com/hotheadhacker)
+Overengineered and AI injected with no care by [mio9](https://github.com/mio9)
 
 ---
 

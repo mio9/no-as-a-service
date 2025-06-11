@@ -1,9 +1,9 @@
 {
   "name": "no-as-service",
-  "version": "1.0.0",
-  "author": "hotheadhacker",
+  "version": "2.0.0",
+  "author": "mio9",
   "main": "index.js",
-  "description": "A lightweight API that returns random rejection or no reasons.",
+  "description": "A lightweight API that returns random rejection or no reasons, forked from hotheadhacker",
   "license": "MIT",
   "scripts": {
     "start": "bun src/index.ts",
