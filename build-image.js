@@ -6,10 +6,12 @@ const major = parseInt(versionArr[0])
 const minor = parseInt(versionArr[1])
 const patch = parseInt(versionArr[2])
 
-Bun.$`docker build --platform linux/amd64,linux/arm64 -t mio9/naas:${major}.${minor}.${patch} .`
-Bun.$`docker tag mio9/naas:${major}.${minor}.${patch} mio9/naas:latest`
-Bun.$`docker push mio9/naas:${major}.${minor}.${patch} mio9/naas:${major}`
-Bun.$`docker push mio9/naas:${major}.${minor}.${patch} mio9/naas:${major}.${minor}`
-Bun.$`docker push mio9/naas:${major}.${minor}.${patch}`
-Bun.$`docker push mio9/naas:latest`
+await Bun.$`docker build --platform linux/amd64,linux/arm64 -t mio9/naas:${major}.${minor}.${patch} .`
+await Bun.$`docker tag mio9/naas:${major}.${minor}.${patch} mio9/naas:latest`
+await Bun.$`docker tag mio9/naas:${major}.${minor}.${patch} mio9/naas:${major}.${minor}`
+await Bun.$`docker tag mio9/naas:${major}.${minor}.${patch} mio9/naas:${major}`
+await Bun.$`docker push mio9/naas:${major}.${minor}.${patch}`
+await Bun.$`docker push mio9/naas:${major}.${minor}`
+await Bun.$`docker push mio9/naas:${major}`
+await Bun.$`docker push mio9/naas:latest`
 
