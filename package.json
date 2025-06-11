@@ -6,12 +6,13 @@
   "description": "A lightweight API that returns random rejection or no reasons.",
   "license": "MIT",
   "scripts": {
-    "start": "bun index.ts",
-    "dev": "bun --watch index.ts"
+    "start": "bun src/index.ts",
+    "dev": "bun --watch src/index.ts"
   },
   "dependencies": {
     "@fastify/rate-limit": "^10.3.0",
-    "fastify": "^5.3.3"
+    "fastify": "^5.3.3",
+    "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
     "@types/bun": "^1.2.15",
