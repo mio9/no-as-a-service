@@ -64,11 +64,6 @@ fastify.get('/no', async (request, reply) => {
 	return reply.send({ reason: outReason });
 });
 
-fastify.get("/test", async (request, reply) => {
-	const { prompt } = request.query as { prompt?: string };
-	const response = await getOllamaResponse(prompt || "say hello");
-	return reply.send({ response });
-});
 
 //fastify start server
 fastify.listen({ port: parseInt(PORT, 10), }, (err) => {
