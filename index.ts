@@ -1,9 +1,20 @@
-const express = require('express');
-const rateLimit = require('express-rate-limit');
-const fs = require('fs');
+// const express = require('express');
+// const rateLimit = require('express-rate-limit');
+// const fs = require('fs');
+import Fastify from 'fastify'
+import rateLimit from '@fastify/rate-limit'
+import fs from 'fs'
 
-const app = express();
-app.set('trust proxy', true);
+
+
+// const app = express();
+const fastify = Fastify({
+  logger: true,
+  trustProxy: process.env.TRUST_PROXY
+});
+// Trust proxy headers (for Cloudflare)
+// app.set('trust proxy', true);
+
 const PORT = process.env.PORT || 3000;
 
 // Load reasons from JSON
