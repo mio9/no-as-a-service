@@ -32,6 +32,7 @@ const reasons = JSON.parse(fs.readFileSync('./reasons.json', 'utf-8'));
 await fastify.register(rateLimit, {
 	max: 120,
 	timeWindow: 60 * 1000,
+	allowList: ["127.0.0.1", "[::1]"]
 })
 
 
