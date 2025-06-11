@@ -11,6 +11,7 @@ This **overengineered** API returns random, generic, creative, and sometimes hil
 Built for humans, excuses, and humor. 
 
 Now comes with endless mode powered by Ollama AI ✨
+
 ---
 
 ## 🚀 API Usage
