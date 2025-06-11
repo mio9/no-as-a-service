@@ -26,7 +26,7 @@ const fastify = Fastify({
 const PORT = process.env.PORT || '3000';
 
 // Load reasons from JSON
-const reasons = JSON.parse(fs.readFileSync('./reasons.json', 'utf-8'));
+const reasons = JSON.parse(fs.readFileSync(`${__dirname}/reasons.json`, 'utf-8'));
 
 // Rate limiter: 120 requests per minute per IP
 await fastify.register(rateLimit, {
@@ -44,7 +44,7 @@ fastify.get('/no', async (request, reply) => {
 	if (endless === 'true') {
 		// Implement endless mode with Ollama AI
 		let prompt = `generate a random reason to turn down something`
-		if (wildMode != -1 ) {
+		if (wildMode != -1) {
 			prompt += " in creative way"
 		}
 		if (wildMode >= 1) {
@@ -65,8 +65,19 @@ fastify.get('/no', async (request, reply) => {
 });
 
 
+process.on('SIGTERM', async function onSigterm() {
+	fastify.log.info("Quitting from SIGTERM")
+	await fastify.close()
+	process.exit(0)
+})
+process.on('SIGINT', async function onSigint() {
+	fastify.log.info("Quitting from SIGTERM")
+	await fastify.close()
+	process.exit(0)
+})
+
 //fastify start server
-fastify.listen({ port: parseInt(PORT, 10), }, (err) => {
+fastify.listen({ port: parseInt(PORT, 10), host: "0.0.0.0" }, (err) => {
 	if (err) throw err;
 	fastify.log.info(`No-as-a-Service is running on port ${PORT}`);
 });
