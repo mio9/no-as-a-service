@@ -71,7 +71,7 @@ process.on('SIGTERM', async function onSigterm() {
 	process.exit(0)
 })
 process.on('SIGINT', async function onSigint() {
-	fastify.log.info("Quitting from SIGTERM")
+	fastify.log.info("Quitting from SIGINT")
 	await fastify.close()
 	process.exit(0)
 })
