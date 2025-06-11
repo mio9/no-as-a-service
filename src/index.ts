@@ -8,17 +8,17 @@ import { getOllamaResponse } from './ollama';
 
 // const app = express();
 const fastify = Fastify({
-  logger: {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-        translateTime: 'SYS:standard',
-        ignore: 'pid,hostname' // Ignore specific fields from the log output
-      }
-    }
-  },
-  trustProxy: (process.env.TRUST_PROXY?.toLowerCase()) == 'true' ? true : false
+	logger: {
+		transport: {
+			target: 'pino-pretty',
+			options: {
+				colorize: true,
+				translateTime: 'SYS:standard',
+				ignore: 'pid,hostname' // Ignore specific fields from the log output
+			}
+		}
+	},
+	trustProxy: (process.env.TRUST_PROXY?.toLowerCase()) == 'true' ? true : false
 });
 // Trust proxy headers (for Cloudflare)
 // app.set('trust proxy', true);
@@ -30,33 +30,34 @@ const reasons = JSON.parse(fs.readFileSync('./reasons.json', 'utf-8'));
 
 // Rate limiter: 120 requests per minute per IP
 await fastify.register(rateLimit, {
-  max: 120,
-  timeWindow: 60 * 1000,
+	max: 120,
+	timeWindow: 60 * 1000,
 })
 
 
 // Random rejection reason endpoint
 fastify.get('/no', async (request, reply) => {
-  const { endless } = request.query as { endless?: string };
-  let outReason = ""
-  if (endless === 'true') {
-    // Implement endless mode with Ollama AI
-    const response = await getOllamaResponse("generate a random reason to turn down something");
-    outReason = response; // Use the generated reason from Ollama AI
-  } else {
-    outReason = reasons[Math.floor(Math.random() * reasons.length)];
-  }
-  return reply.send({ reason: outReason });
+	const { endless } = request.query as { endless?: string };
+	let outReason = ""
+	if (endless === 'true') {
+		// Implement endless mode with Ollama AI
+		let prompt = `generate a random reason to turn down something`
+		const response = await getOllamaResponse(prompt);
+		outReason = response; // Use the generated reason from Ollama AI
+	} else {
+		outReason = reasons[Math.floor(Math.random() * reasons.length)];
+	}
+	return reply.send({ reason: outReason });
 });
 
 fastify.get("/test", async (request, reply) => {
-  const { prompt } = request.query as { prompt?: string };
-  const response = await getOllamaResponse(prompt || "say hello");
-  return reply.send({ response });
+	const { prompt } = request.query as { prompt?: string };
+	const response = await getOllamaResponse(prompt || "say hello");
+	return reply.send({ response });
 });
 
 //fastify start server
 fastify.listen({ port: parseInt(PORT, 10), }, (err) => {
-  if (err) throw err;
-  fastify.log.info(`No-as-a-Service is running on port ${PORT}`);
+	if (err) throw err;
+	fastify.log.info(`No-as-a-Service is running on port ${PORT}`);
 });
