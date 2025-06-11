@@ -27,12 +27,19 @@ https://naas.isalman.dev/no
 ### 🔄 Example Request
 ```http
 GET /no
+GET /no?endless=true&wild=2
 ```
+
+### 🔍 Available Query
+- `endless` (optional): Set to `'true
+- `wild` (optional): Set to a number between `-1` and `2` to control the creativity (and abstractness) level of the rejection reason.
+
+`wild` will only be considered when `endless` is set to `'true'`.
 
 ### ✅ Example Response
 ```json
 {
-  "reason": "This feels like something Future Me would yell at Present Me for agreeing to."
+    "reason": "I wouldst decline thy offer, for mine eyes have beheld the dance of shadows on yonder wall, whispering tales of untold mysteries that doth call me hence."
 }
 ```
 
