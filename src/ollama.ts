@@ -41,7 +41,6 @@ export async function getOllamaResponse(prompt: string): Promise<string> {
 		})
 		.json<ChatResponse>();
 
-	console.dir(response);
 	let returnedMessage = response.message.content;
 	returnedMessage = sanitizeOutput(returnedMessage);
 	if (returnedMessage) {
